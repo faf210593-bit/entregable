@@ -29,3 +29,6 @@ private ValidacionService validacion;
             System.out.println("Error: Cantidad inválida o sin stock.");
             return;
         
+double subtotal = calculo.calcularSubtotal(cantidad);
+        double igv = calculo.calcularIGV(subtotal);
+        double total = calculo.calcularTotal(subtotal, igv);
