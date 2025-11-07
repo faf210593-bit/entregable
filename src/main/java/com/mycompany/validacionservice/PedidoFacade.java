@@ -14,7 +14,8 @@ private ValidacionService validacion;
     private RegistroService registro;
     private ComprobanteService comprobante;
     private FacturaService facturaService;  // Usará el Adapter
-   public PedidoFacade() {
+   
+    public PedidoFacade() {
         this.validacion = new ValidacionService();
         this.calculo = new CalculoService();
         this.registro = new RegistroService();
@@ -22,3 +23,9 @@ private ValidacionService validacion;
         this.facturaService = new FacturaAdapter();  // Inyecta el Adapter  
 }
 }
+ public void procesarPedido(String nombre, String producto, int cantidad) {
+        // 1. Validar
+        if (!validacion.validar(cantidad)) {
+            System.out.println("Error: Cantidad inválida o sin stock.");
+            return;
+        
