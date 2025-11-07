@@ -12,7 +12,7 @@ private LegacyBillingSystem legacySystem;
     public FacturaAdapter() {
         this.legacySystem = new LegacyBillingSystem();
     }
-    @Override
+    
     public void generarFactura(String nombre, String producto, int cantidad, double total) {
         // Adapta: convierte los parámetros en un String que LegacyBillingSystem entienda
         String data = nombre + " - " + producto + " x" + cantidad + " Total: " + total;
