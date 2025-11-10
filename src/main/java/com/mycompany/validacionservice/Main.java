@@ -9,7 +9,7 @@ package com.mycompany.validacionservice;
  * @author Usuario
  */
 public class Main {
-public class Main {
+
     public static void main(String[] args) {
         PedidoFacade facade = new PedidoFacade();
         // Simula un pedido del cliente
@@ -22,4 +22,4 @@ public class Main {
         facade.procesarPedido("Ana Gomez", "Mouse", -1);
     }
 }    
-}
+

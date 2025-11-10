@@ -11,18 +11,25 @@ package com.mycompany.validacionservice;
 public class PedidoFacade {
 private ValidacionService validacion;
     private CalculoService calculo;
+    private PedidoRepository repository;  // Nuevo: usa Repository 
     private RegistroService registro;
     private ComprobanteService comprobante;
     private FacturaService facturaService;  // Usará el Adapter
-   
-    public PedidoFacade() {
+    private ImpuestoStrategy impuestoStrategy;  // Nuevo: estrategia seleccionable
+    
+public PedidoFacade() {
         this.validacion = new ValidacionService();
         this.calculo = new CalculoService();
+        this.repository = new PedidoRepository();  // Instancia Repository
         this.registro = new RegistroService();
         this.comprobante = new ComprobanteService();
-        this.facturaService = new FacturaAdapter();  // Inyecta el Adapter  
+        this.facturaService = new FacturaAdapter();  // Inyecta el Adapter
+        this.impuestoStrategy = new IGV18Strategy();  // Por defecto: IGV 18%
 }
+public void setImpuestoStrategy(ImpuestoStrategy strategy) {
+        this.impuestoStrategy = strategy;
 }
+
  public void procesarPedido(String nombre, String producto, int cantidad) {
         // 1. Validar
         if (!validacion.validar(cantidad)) {
@@ -32,3 +39,10 @@ private ValidacionService validacion;
 double subtotal = calculo.calcularSubtotal(cantidad);
         double igv = calculo.calcularIGV(subtotal);
         double total = calculo.calcularTotal(subtotal, igv);
+Pedido pedido = new Pedido(nombre, producto, cantidad, subtotal, igv, total);
+        repository.guardar(pedido);
+        facturaService.generarFactura(nombre, producto, cantidad, total);
+        comprobante.generarComprobante(nombre, producto, cantidad, subtotal, igv, total);
+    }
+}
+}
