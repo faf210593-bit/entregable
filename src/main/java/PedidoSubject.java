@@ -33,3 +33,9 @@ class InventarioObserver implements Observer {
         System.out.println("[Observer - Inventario] Actualizando stock: restando " + pedido.getCantidad() + " de " + pedido.getProducto());
     }
 }
+class LogObserver implements Observer {
+    @Override
+    public void update(Pedido pedido) {
+        System.out.println("[Observer - Log] Registrando evento: Pedido procesado para " + pedido.getNombre());
+    }
+}
