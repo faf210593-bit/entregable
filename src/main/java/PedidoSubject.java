@@ -21,3 +21,15 @@ public class PedidoSubject {
         }
     }    
 }
+class ClienteObserver implements Observer {
+    @Override
+    public void update(Pedido pedido) {
+        System.out.println("[Observer - Cliente] Enviando email a " + pedido.getNombre() + " por pedido de " + pedido.getProducto());
+    }
+}
+class InventarioObserver implements Observer {
+    @Override
+    public void update(Pedido pedido) {
+        System.out.println("[Observer - Inventario] Actualizando stock: restando " + pedido.getCantidad() + " de " + pedido.getProducto());
+    }
+}
